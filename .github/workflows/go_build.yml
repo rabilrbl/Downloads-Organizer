@@ -1,3 +1,5 @@
+name: Go Build and Release
+
 on: 
   workflow_dispatch
 
