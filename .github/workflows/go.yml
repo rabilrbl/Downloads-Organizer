@@ -22,7 +22,7 @@ jobs:
             done
         continue-on-error: true
       - name: Version 🔢
-        run: echo "::set-output name=version::v1.$(date "+%d.%m.%y.%H%M%S")"
+        run: echo "::set-output name=version::$(cat .version)"
         id: version
       - name: Release 📦
         uses: softprops/action-gh-release@v1
