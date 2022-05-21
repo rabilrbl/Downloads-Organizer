@@ -23,7 +23,7 @@ func createFolder(dir string, path string) {
 // Compressed
 // Programs
 // Others
-// Others/Folders
+// Folders
 func createFolders(dir string) {
 	createFolder("Documents", dir)
 	createFolder("Text Files", dir)
