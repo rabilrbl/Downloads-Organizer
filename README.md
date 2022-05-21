@@ -17,3 +17,4 @@ Organizes your download folder based on their type and extensions
   
  ## Usage
  > ### Set the environment variable `SORT_FOLDER_DESTINATION` to download destination folder in your operating system and run the executable file from releases or compile with `go build main.go`
+
