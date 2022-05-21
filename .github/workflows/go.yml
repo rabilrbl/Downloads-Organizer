@@ -10,4 +10,6 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version-file: "go.mod"
-      - run: go version
+      - run: |
+       go version
+       go tool dist list -json
