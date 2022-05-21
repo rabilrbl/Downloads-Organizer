@@ -39,6 +39,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/Downloads-Organizer.exe
           asset_name: Downloads-Organizer.exe
+          asset_content_type: application/x-ms-dos-executable
       - name: upload linux artifact
         uses: actions/upload-release-asset@v1
         env:
@@ -47,3 +48,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./bin/Downloads-Organizer
           asset_name: Downloads-Organizer
+          asset_content_type: application/x-executable
