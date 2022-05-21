@@ -21,7 +21,7 @@ jobs:
                     "linux" | "darwin")
                       echo "Building $var"
                       GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
-                    ;;&
+                    ;;
                     *)
                       echo "Skipping OS: $(cut -d '/' -f 1 <<<$var)"
                     ;;
