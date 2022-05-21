@@ -13,4 +13,4 @@ jobs:
       - name: GOOO
         run: |
           go version
-          export go tool dist list -json
+          export GO_BUILD_ARCHS_JSON=$(go tool dist list -json)
