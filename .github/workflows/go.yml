@@ -29,37 +29,20 @@ jobs:
         id: version
       - name: release
         uses: softprops/action-gh-release@v1
-        id: create_release
         with:
           draft: false
           prerelease: false
           release_name: ${{ steps.version.outputs.version }}
           tag_name: ${{ steps.version.outputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - name: upload
-        uses: softprops/action-gh-release@v1
-        id: upload_release
-        with:
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ steps.version.outputs.version }}
-          assets:
-            - path: ./bin/Downloads-Organizer-x64.exe
-              name: Downloads-Organizer-x64.exe
-            - path: ./bin/Downloads-Organizer-x86.exe
-              name: Downloads-Organizer-x86.exe
-            - path: ./bin/Downloads-Organizer-Linux-x86_64
-              name: Downloads-Organizer-Linux-x86_64
-            - path: ./bin/Downloads-Organizer-Darwin-x86_64
-              name: Downloads-Organizer-Darwin-x86_64
-            - path: ./bin/Downloads-Organizer-Linux-aarch64
-              name: Downloads-Organizer-Linux-aarch64
-            - path: ./bin/Downloads-Organizer-Darwin-aarch64
-              name: Downloads-Organizer-Darwin-aarch64
-            - path: ./bin/Downloads-Organizer-Linux-x86
-              name: Downloads-Organizer-Linux-x86
-            - path: ./bin/Downloads-Organizer-Darwin-x86
-              name: Downloads-Organizer-Darwin-x86
+          files: |
+            ./bin/Downloads-Organizer-x64.exe
+            ./bin/Downloads-Organizer-x86.exe
+            ./bin/Downloads-Organizer-Linux-x86_64
+            ./bin/Downloads-Organizer-Darwin-x86_64
+            ./bin/Downloads-Organizer-Linux-aarch64
+            ./bin/Downloads-Organizer-Darwin-aarch64
+            ./bin/Downloads-Organizer-Linux-x86
+            ./bin/Downloads-Organizer-Darwin-x86
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
