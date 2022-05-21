@@ -23,7 +23,6 @@ jobs:
             GOOS=linux GOARCH=arm64 go build -o ./bin/Downloads-Organizer-Linux-aarch64
             GOOS=darwin GOARCH=arm64 go build -o ./bin/Downloads-Organizer-Darwin-aarch64
             GOOS=linux GOARCH=386 go build -o ./bin/Downloads-Organizer-Linux-x86
-            GOOS=darwin GOARCH=386 go build -o ./bin/Downloads-Organizer-Darwin-x86
       - name: version
         run: echo "::set-output name=version::v$(date "+%d-%m-%y-%H%M%S")"
         id: version
@@ -42,7 +41,6 @@ jobs:
             ./bin/Downloads-Organizer-Linux-aarch64
             ./bin/Downloads-Organizer-Darwin-aarch64
             ./bin/Downloads-Organizer-Linux-x86
-            ./bin/Downloads-Organizer-Darwin-x86
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
