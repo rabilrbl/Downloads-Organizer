@@ -16,9 +16,9 @@ jobs:
             for var in $(go tool dist list); do
                 echo "Building $var"
                 if [ "$(cut -d '/' -f 1 <<<$var)" = "windows" ]; then
-                    GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe"
+                    GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
                 else
-                  GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)"
+                  GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
                 fi
             done
         continue-on-error: true
