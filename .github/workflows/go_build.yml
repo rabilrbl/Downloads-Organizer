@@ -5,24 +5,20 @@ on:
     inputs:
       version:
         type: string
-        description: Provide a version number to release.
+        description: 'Provide a version number to release.'
         required: true
       changelog:
         type: string
-        description: Provide a changelog for the release.
+        description: 'Provide a changelog for the release.'
         default: "No changelog provided."
       draft:
         type: boolean
-        description: Whether to create a draft release.
+        description: 'Create a draft release.'
         default: false
       prerelease:
         type: boolean
-        description: Whether to create a prerelease release.
+        description: 'Pre-release?'
         default: false
-      enviroment:
-        type: environment
-        description: The environment to use for the release.
-        default: ubuntu-latest
 
 jobs:
   build:
