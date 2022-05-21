@@ -10,6 +10,11 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version-file: "go.mod"
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
       - name: Build Executables 🗄️ 🔃
         run: |
             for var in $(go tool dist list); do
