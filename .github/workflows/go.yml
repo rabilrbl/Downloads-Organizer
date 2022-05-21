@@ -10,23 +10,22 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version-file: "go.mod"
-      - name: GOOO
+      - name: Build Executables 🗄️ 🔃
         run: |
-          go version
-          export GO_BUILD_ARCHS_JSON=$(go tool dist list -json)
-      - name: build artifacts
-        run: |
-            GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o ./bin/Downloads-Organizer-x64.exe
-            GOOS=windows GOARCH=386 go build -ldflags -H=windowsgui -o ./bin/Downloads-Organizer-x86.exe
-            GOOS=linux GOARCH=amd64 go build -o ./bin/Downloads-Organizer-Linux-x86_64
-            GOOS=darwin GOARCH=amd64 go build -o ./bin/Downloads-Organizer-Darwin-x86_64
-            GOOS=linux GOARCH=arm64 go build -o ./bin/Downloads-Organizer-Linux-aarch64
-            GOOS=darwin GOARCH=arm64 go build -o ./bin/Downloads-Organizer-Darwin-aarch64
-            GOOS=linux GOARCH=386 go build -o ./bin/Downloads-Organizer-Linux-x86
-      - name: version
-        run: echo "::set-output name=version::v$(date "+%d-%m-%y-%H%M%S")"
+            for var in $(go tool dist list); do
+                echo "Building $var"
+                if [ "$(cut -d '/' -f 1 <<<$var)" = "windows" ]; then
+                    GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe"
+                elif [ "$(cut -d '/' -f 1 <<<$var)" = "android" ]; then
+                    GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe"
+                else
+                  GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)"
+                fi
+            done
+      - name: Version 🔢
+        run: echo "::set-output name=version::v1.$(date "+%d.%m.%y Build %H%M%S")"
         id: version
-      - name: release
+      - name: Release 📦
         uses: softprops/action-gh-release@v1
         with:
           draft: false
