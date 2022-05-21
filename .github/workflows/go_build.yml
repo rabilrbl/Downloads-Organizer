@@ -10,6 +10,19 @@ on:
       changelog:
         type: string
         description: Provide a changelog for the release.
+        default: "No changelog provided."
+      draft:
+        type: boolean
+        description: Whether to create a draft release.
+        default: false
+      prerelease:
+        type: boolean
+        description: Whether to create a prerelease release.
+        default: false
+      enviroment:
+        type: environment
+        description: The environment to use for the release.
+        default: ubuntu-latest
 
 jobs:
   build:
@@ -40,8 +53,8 @@ jobs:
       - name: Release 📦
         uses: softprops/action-gh-release@v1
         with:
-          draft: false
-          prerelease: false
+          draft: ${{ github.event.inputs.draft }}
+          prerelease: ${{ github.event.inputs.prerelease }}
           body: ${{ github.event.inputs.changelog }}
           tag_name: ${{ github.event.inputs.version }}
           files: |
