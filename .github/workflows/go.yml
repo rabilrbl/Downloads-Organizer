@@ -20,7 +20,7 @@ jobs:
                     ;;
                     "linux")
                       echo "Building $var"
-                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
+                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
                     ;;
                     "darwin")
                       echo "Building $var"
