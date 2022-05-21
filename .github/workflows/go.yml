@@ -14,23 +14,24 @@ jobs:
         uses: egor-tensin/setup-gcc@v1
         with:
           version: latest
-          platform: x64
-      - name: Build Executables 🗄️ 🔃
+          platform: any
+      - name: build
         run: |
-            export CGO_LDFLAGS=-Wl,--no-as-needed
             for var in $(go tool dist list); do
                 echo "Building $var"
                 if [ "$(cut -d '/' -f 1 <<<$var)" = "windows" ]; then
                     GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe"
+                    continue-on-error: true
                 else
                   GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)"
+                  continue-on-error: true
                 fi
             done
         continue-on-error: true
-      - name: Version 🔢
+      - name: version
         run: echo "::set-output name=version::v1.$(date "+%d.%m.%y Build %H%M%S")"
         id: version
-      - name: Release 📦
+      - name: release
         uses: softprops/action-gh-release@v1
         with:
           draft: false
