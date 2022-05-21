@@ -1,7 +1,15 @@
 name: Go Build and Release
 
 on: 
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: Provide a version number to release.
+        required: true
+      changelog:
+        type: string
+        description: Provide a changelog for the release.
 
 jobs:
   build:
@@ -29,15 +37,13 @@ jobs:
               esac
             done
         continue-on-error: true
-      - name: Version 🔢
-        run: echo "::set-output name=version::$(cat .version)"
-        id: version
       - name: Release 📦
         uses: softprops/action-gh-release@v1
         with:
           draft: false
           prerelease: false
-          tag_name: ${{ steps.version.outputs.version }}
+          body: ${{ github.event.inputs.changelog }}
+          tag_name: ${{ github.event.inputs.version }}
           files: |
             ./bin/*
         env:
