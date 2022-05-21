@@ -14,11 +14,18 @@ jobs:
         run: |
             for var in $(go tool dist list); do
                 echo "Building $var"
-                if [ "$(cut -d '/' -f 1 <<<$var)" = "windows" ]; then
-                    GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
-                else
-                  GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
-                fi
+                case "$(cut -d '/' -f 1 <<<$var)" in
+                    "windows")
+                        GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
+                      ;;
+                      "linux")
+                        GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
+                      ;;
+                      "darwin")
+                        GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
+                      ;;
+                      *)
+                        echo "Skipping OS: $(cut -d '/' -f 1 <<<$var)"
             done
         continue-on-error: true
       - name: Version 🔢
