@@ -34,13 +34,7 @@ jobs:
           release_name: ${{ steps.version.outputs.version }}
           tag_name: ${{ steps.version.outputs.version }}
           files: |
-            ./bin/Downloads-Organizer-x64.exe
-            ./bin/Downloads-Organizer-x86.exe
-            ./bin/Downloads-Organizer-Linux-x86_64
-            ./bin/Downloads-Organizer-Darwin-x86_64
-            ./bin/Downloads-Organizer-Linux-aarch64
-            ./bin/Downloads-Organizer-Darwin-aarch64
-            ./bin/Downloads-Organizer-Linux-x86
+            ./bin
         env:
           GITHUB_TOKEN: ${{ github.token }}
       
