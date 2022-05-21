@@ -12,10 +12,7 @@ jobs:
           go-version-file: "go.mod"
       - name: Set up GCC
         uses: egor-tensin/setup-gcc@v1
-        with:
-          version: latest
-          platform: any
-      - name: build
+      - name: Build Executables 🗄️ 🔃
         run: |
             for var in $(go tool dist list); do
                 echo "Building $var"
@@ -27,11 +24,11 @@ jobs:
                   continue-on-error: true
                 fi
             done
-        continue-on-error: true
-      - name: version
+          continue-on-error: true
+      - name: Version 🔢
         run: echo "::set-output name=version::v1.$(date "+%d.%m.%y Build %H%M%S")"
         id: version
-      - name: release
+      - name: Release 📦
         uses: softprops/action-gh-release@v1
         with:
           draft: false
