@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 )
 
 // Function that creates Folders if it doesn't exist
@@ -39,7 +40,7 @@ func createFolders(dir string) {
 func moveFile(src string, dest string) {
 	err := os.Rename(src, dest)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 }
 
@@ -56,11 +57,13 @@ func sortFilesToFolders(path string) {
 			fileName := extension[size-1]
 			file := file.Name()
 			switch fileName {
+			case ".tmp":
+				continue
 			case "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx":
 				log.Println("Moving " + file + " to Documents")
 				moveFile(path+"/"+file, path+"/"+"Documents/"+file)
 			case "txt", "log", "ini", "conf", "csv", "json", "xml", "yml", "yaml", "rtf":
-				if(file=="sort_folder.log"){
+				if file == "sort_folder.log" {
 					continue
 				}
 				log.Println("Moving " + file + " to Text Files")
@@ -93,19 +96,19 @@ func sortFilesToFolders(path string) {
 				log.Println("Moving " + file.Name() + " to Others")
 				moveFile(path+"/"+file.Name(), path+"/"+"Others/"+file.Name())
 			} else if file.IsDir() {
-				switch(file.Name()){
-					case "Documents":
-						case "Text Files":
-						case "Pictures":
-						case "Music":
-						case "Videos":
-						case "Compressed":
-						case "Programs":
-						case "Others":
-						case "Folders":
-						default:
-							log.Println("Moving " + file.Name() + " to Folders")
-							moveFile(path+"/"+file.Name(), path+"/"+"Folders/"+file.Name())
+				switch file.Name() {
+				case "Documents":
+				case "Text Files":
+				case "Pictures":
+				case "Music":
+				case "Videos":
+				case "Compressed":
+				case "Programs":
+				case "Others":
+				case "Folders":
+				default:
+					log.Println("Moving " + file.Name() + " to Folders")
+					moveFile(path+"/"+file.Name(), path+"/"+"Folders/"+file.Name())
 				}
 			}
 		}
@@ -125,5 +128,8 @@ func main() {
 	defer f.Close()
 	log.SetOutput(f)
 	createFolders(dest)
-	sortFilesToFolders(dest)
+	for {
+		sortFilesToFolders(dest)
+		time.Sleep(time.Minute * 5)
+	}
 }
