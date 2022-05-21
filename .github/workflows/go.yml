@@ -14,3 +14,36 @@ jobs:
         run: |
           go version
           export GO_BUILD_ARCHS_JSON=$(go tool dist list -json)
+      - name: build artifacts
+        run: |
+            GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o ./bin/Downloads-Organizer.exe
+            GOOS=linux GOARCH=amd64 go build -o ./bin/Downloads-Organizer
+    - name: version
+    run: echo "::set-output name=version::$(echo "1.0.0")"
+    id: version
+  - name: release
+    uses: actions/create-release@v1
+    id: create_release
+    with:
+      draft: false
+      prerelease: false
+      release_name: ${{ steps.version.outputs.version }}
+      tag_name: ${{ github.ref }}
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    - name: upload windows artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./bin/Downloads-Organizer.exe
+        asset_name: Downloads-Organizer.exe
+    - name: upload linux artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./bin/Downloads-Organizer
+        asset_name: Downloads-Organizer
