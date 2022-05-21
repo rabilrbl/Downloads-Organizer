@@ -23,14 +23,13 @@ jobs:
             done
         continue-on-error: true
       - name: Version 🔢
-        run: echo "::set-output name=version::v1.$(date "+%d.%m.%y Build %H%M%S")"
+        run: echo "::set-output name=version::v1.$(date "+%d.%m.%y.%H%M%S")"
         id: version
       - name: Release 📦
         uses: softprops/action-gh-release@v1
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
           tag_name: ${{ steps.version.outputs.version }}
           files: |
             ./bin/*
