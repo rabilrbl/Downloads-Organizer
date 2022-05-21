@@ -11,6 +11,6 @@ jobs:
         with:
           go-version-file: "go.mod"
       - name: GOOO
-      - run: |
+        run: |
           go version
           go tool dist list -json
