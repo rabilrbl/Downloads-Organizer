@@ -26,6 +26,7 @@ jobs:
                   GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)"
                 fi
             done
+        continue-on-error: true
       - name: Version 🔢
         run: echo "::set-output name=version::v1.$(date "+%d.%m.%y Build %H%M%S")"
         id: version
