@@ -13,15 +13,17 @@ jobs:
       - name: Build Executables 🗄️ 🔃
         run: |
             for var in $(go tool dist list); do
-              echo "Building $var"
               case "$(cut -d '/' -f 1 <<<$var)" in
                   "windows")
-                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
+                      echo "Building $var"
+                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -ldflags -H=windowsgui -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
                     ;;
                     "linux")
+                      echo "Building $var"
                       GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
                     ;;
                     "darwin")
+                      echo "Building $var"
                       GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
                     ;;
                     *)
