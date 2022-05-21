@@ -13,4 +13,4 @@ jobs:
       - name: GOOO
         run: |
           go version
-          go tool dist list -json
+          export go tool dist list -json
