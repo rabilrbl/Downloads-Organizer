@@ -16,36 +16,50 @@ jobs:
           export GO_BUILD_ARCHS_JSON=$(go tool dist list -json)
       - name: build artifacts
         run: |
-            GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o ./bin/Downloads-Organizer.exe
-            GOOS=linux GOARCH=amd64 go build -o ./bin/Downloads-Organizer
+            GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o ./bin/Downloads-Organizer-x64.exe
+            GOOS=windows GOARCH=386 go build -o ./bin/Downloads-Organizer-x86.exe
+            GOOS=linux GOARCH=amd64 go build -o ./bin/Downloads-Organizer-Linux-x86_64
+            GOOS=darwin GOARCH=amd64 go build -o ./bin/Downloads-Organizer-Darwin-x86_64
+            GOOS=linux GOARCH=arm64 go build -o ./bin/Downloads-Organizer-Linux-aarch64
+            GOOS=darwin GOARCH=arm64 go build -o ./bin/Downloads-Organizer-Darwin-aarch64
+            GOOS=linux GOARCH=i386 go build -o ./bin/Downloads-Organizer-Linux-x86
+            GOOS=darwin GOARCH=i386 go build -o ./bin/Downloads-Organizer-Darwin-x86
       - name: version
         run: echo "::set-output name=version::v$(date "+%d-%m-%y-%H%M%S")"
         id: version
       - name: release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         id: create_release
         with:
           draft: false
           prerelease: false
           release_name: ${{ steps.version.outputs.version }}
-          tag_name: version-${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - name: upload windows artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - name: upload
+        uses: softprops/action-gh-release@v1
+        id: upload_release
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/Downloads-Organizer.exe
-          asset_name: Downloads-Organizer.exe
-          asset_content_type: application/x-ms-dos-executable
-      - name: upload linux artifact
-        uses: actions/upload-release-asset@v1
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
+          assets:
+            - path: ./bin/Downloads-Organizer-x64.exe
+              name: Downloads-Organizer-x64.exe
+            - path: ./bin/Downloads-Organizer-x86.exe
+              name: Downloads-Organizer-x86.exe
+            - path: ./bin/Downloads-Organizer-Linux-x86_64
+              name: Downloads-Organizer-Linux-x86_64
+            - path: ./bin/Downloads-Organizer-Darwin-x86_64
+              name: Downloads-Organizer-Darwin-x86_64
+            - path: ./bin/Downloads-Organizer-Linux-aarch64
+              name: Downloads-Organizer-Linux-aarch64
+            - path: ./bin/Downloads-Organizer-Darwin-aarch64
+              name: Downloads-Organizer-Darwin-aarch64
+            - path: ./bin/Downloads-Organizer-Linux-x86
+              name: Downloads-Organizer-Linux-x86
+            - path: ./bin/Downloads-Organizer-Darwin-x86
+              name: Downloads-Organizer-Darwin-x86
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/Downloads-Organizer
-          asset_name: Downloads-Organizer
-          asset_content_type: application/x-executable
+      
