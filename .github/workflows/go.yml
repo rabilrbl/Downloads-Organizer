@@ -19,8 +19,8 @@ jobs:
             GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o ./bin/Downloads-Organizer.exe
             GOOS=linux GOARCH=amd64 go build -o ./bin/Downloads-Organizer
       - name: version
-      run: echo "::set-output name=version::$(echo "1.0.0")"
-      id: version
+        run: echo "::set-output name=version::$(echo "1.0.0")"
+        id: version
       - name: release
         uses: actions/create-release@v1
         id: create_release
