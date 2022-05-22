@@ -87,9 +87,10 @@ func sortFilesToFolders(path string) {
 				log.Println("Moving " + file + " to Programs")
 				moveFile(path+"/"+file, path+"/"+"Programs/"+file)
 			default:
-				dest := path + "/" + "Others/" + file
+				dest := path + "/" + "Others"
 				createFolder(fileName, dest)
 				moveFile(path+"/"+file, dest+"/"+fileName+"/"+file)
+				log.Println("Moving " + file + " to Others/" + fileName)
 			}
 		} else {
 			if file.Type().IsRegular() {
