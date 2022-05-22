@@ -1,6 +1,8 @@
 # Downloads-Organizer
 
-Organizes your download folder based on their type and extensions
+Organizes your download folder based on their type and extensions.
+
+***If there is a file with unspecified extension, Downloads-Organizer will automatically create a new sub folder for the extension under Others.***
 
 - Documents
 - Text Files
