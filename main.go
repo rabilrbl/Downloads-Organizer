@@ -87,7 +87,7 @@ func sortFilesToFolders(path string) {
 				log.Println("Moving " + file + " to Programs")
 				moveFile(path+"/"+file, path+"/"+"Programs/"+file)
 			default:
-				dest := "/mnt/c/Users/rabil/Downloads/Others"
+				dest := path + "/" + "Others/" + file
 				createFolder(fileName, dest)
 				moveFile(path+"/"+file, dest+"/"+fileName+"/"+file)
 			}
