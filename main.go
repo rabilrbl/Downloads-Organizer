@@ -131,7 +131,7 @@ func main() {
 	createFolders(dest)
 	for {
 		sortFilesToFolders(dest)
-		time.Sleep(time.Second * 10)
+		time.Sleep(time.Minute * 5)
 	}
 }
 
