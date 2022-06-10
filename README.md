@@ -28,22 +28,22 @@ Organizes your download folder based on their type and extensions.
   - now Downloads-Organizer will start automatically on every boot
 - ### Linux
   - Type `sudo nano /lib/systemd/system/downloads-organizer.service`
-  - Paste following content in the file
+  - Paste following content in the file. Replace `<path-to-your-downloaded-file>`
     ```
     [Unit]
     Description=Sorts the downloads folder
 
     [Service]
-    ExecStart=Downloads-Organizer
+    ExecStart=<path-to-your-downloaded-file>
 
     [Install]
     WantedBy=multi-user.target
     ```
    - Type `sudo systemctl edit downloads-organizer.service`
-   - Paste following content in the file
+   - Paste following content in the file. Replace `<path-to-your-download-folder>`
      ```
      [Service]
-      Environment="SORT_FOLDER_DESTINATION=/home/rabil/Downloads"
+      Environment="SORT_FOLDER_DESTINATION=<path-to-your-download-folder>"
       ```
    - Run `sudo systemctl start downloads-organizer.service`
    - To verify if the downloads organizer is runnung
@@ -52,4 +52,5 @@ Organizes your download folder based on their type and extensions.
        ![image](https://user-images.githubusercontent.com/63334479/173121054-550a396d-b287-4a28-a9cb-544c98d46389.png)
 
 ---
-> ### If your finding difficulty in setting up feel free to create an [issue](https://github.com/rabilrbl/Downloads-Organizer/issues)
+### If your finding difficulty in setting up feel free to create an [issue](https://github.com/rabilrbl/Downloads-Organizer/issues)
+---
