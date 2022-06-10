@@ -47,7 +47,7 @@ Organizes your download folder based on their type and extensions.
       ```
    - Run `sudo systemctl start downloads-organizer.service`
    - To verify if the downloads organizer is runnung
-     - Run `udo systemctl status downloads-organizer.service`
+     - Run `sudo systemctl status downloads-organizer.service`
      - It will show Active as seen below
        ![image](https://user-images.githubusercontent.com/63334479/173121054-550a396d-b287-4a28-a9cb-544c98d46389.png)
 
