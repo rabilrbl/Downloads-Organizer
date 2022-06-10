@@ -39,7 +39,7 @@ Organizes your download folder based on their type and extensions.
     [Install]
     WantedBy=multi-user.target
     ```
-   - Type ``sudo systemctl edit downloads-organizer.service
+   - Type `sudo systemctl edit downloads-organizer.service`
    - Paste following content in the file
      ```
      [Service]
