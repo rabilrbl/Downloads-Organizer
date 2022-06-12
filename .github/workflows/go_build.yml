@@ -34,11 +34,11 @@ jobs:
               case "$(cut -d '/' -f 1 <<<$var)" in
                   "windows")
                       echo "Building $var"
-                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -ldflags -H=windowsgui -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
+                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -ldflags -H=windowsgui -o ./bin/"Downloads-Organizer-$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var).exe" || true
                     ;;
                     "linux" | "darwin")
                       echo "Building $var"
-                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
+                      GOOS="$(cut -d '/' -f 1 <<<$var)" GOARCH="$(cut -d '/' -f 2 <<<$var)" go build -o ./bin/"Downloads-Organizer-$(cut -d '/' -f 1 <<<$var)-$(cut -d '/' -f 2 <<<$var)" || true
                     ;;
                     *)
                       echo "Skipping OS: $(cut -d '/' -f 1 <<<$var)"
