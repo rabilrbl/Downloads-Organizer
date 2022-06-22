@@ -45,7 +45,8 @@ Organizes your download folder based on their type and extensions.
      [Service]
       Environment="SORT_FOLDER_DESTINATION=<path-to-your-download-folder>"
       ```
-   - Run `sudo systemctl start downloads-organizer.service`
+   - Run `sudo systemctl enable downloads-organizer.service`
+   - Then `sudo systemctl start downloads-organizer.service`
    - To verify if the downloads organizer is runnung
      - Run `sudo systemctl status downloads-organizer.service`
      - It will show Active as seen below
