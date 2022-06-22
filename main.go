@@ -38,7 +38,25 @@ func createFolders(dir string) {
 
 // Function to move a file
 func moveFile(src string, dest string) {
-	err := os.Rename(src, dest)
+	var err error
+
+	// if file doesn't exist
+	if _, err = os.Stat(dest); os.IsNotExist(err) {
+		err = os.Rename(src, dest)
+	} else {
+		// If file exists, append date and time to the file name
+		// split by "." to get the extension
+		split := strings.Split(dest, ".")
+		split_len := len(split)
+		// If there is no extension, just append the date and time
+		if split_len == 1 {
+			err = os.Rename(src, dest+"_"+time.Now().Format("2006-01-02_15-04-05"))
+		} else {
+			// If there is an extension, remove extension from the file name and append the date+time then add the extension back
+			err = os.Rename(src, strings.Join(split[:split_len-1], ".")+"_"+time.Now().Format("2006-01-02_15-04-05")+"."+split[split_len-1])
+		}
+	}
+
 	if err != nil {
 		log.Println(err)
 	}
@@ -131,7 +149,6 @@ func main() {
 	createFolders(dest)
 	for {
 		sortFilesToFolders(dest)
-		time.Sleep(time.Minute * 5)
+		time.Sleep(time.Second * 5)
 	}
 }
-
