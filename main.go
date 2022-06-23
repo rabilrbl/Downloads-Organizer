@@ -75,7 +75,7 @@ func sortFilesToFolders(path string) {
 			fileName := extension[size-1]
 			file := file.Name()
 			switch fileName {
-			case ".tmp":
+			case "tmp", "part":
 				continue
 			case "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx":
 				log.Println("Moving " + file + " to Documents")
