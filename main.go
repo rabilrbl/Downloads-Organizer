@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -139,6 +140,17 @@ func main() {
 	if dest == "" {
 		log.Default().Fatalln("Please set the SORT_FOLDER_DESTINATION environment variable")
 	}
+
+	sleepMinutesStr := os.Getenv("SORT_FOLDER_SLEEP_MINUTES")
+	if sleepMinutesStr == "" {
+		log.Default().Fatalln("Please set the SORT_FOLDER_SLEEP_MINUTES environment variable")
+	}
+
+	sleepMinutes, err := strconv.Atoi(sleepMinutesStr)
+	if err != nil {
+		log.Default().Fatalf("Invalid value for SORT_FOLDER_SLEEP_MINUTES: %s", err)
+	}
+
 	// save all logs to a file
 	f, err := os.OpenFile(dest+"/sort_folder.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
@@ -146,9 +158,11 @@ func main() {
 	}
 	defer f.Close()
 	log.SetOutput(f)
+
 	createFolders(dest)
+
 	for {
 		sortFilesToFolders(dest)
-		time.Sleep(time.Minute * 5)
+		time.Sleep(time.Minute * time.Duration(sleepMinutes))
 	}
 }
