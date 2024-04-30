@@ -18,7 +18,7 @@ Organizes your download folder based on their type and extensions.
    - All folders
   
  ## Usage
- > ### Set the environment variable `SORT_FOLDER_DESTINATION` to download destination folder and SORT_FOLDER_SLEEP_MINUTES to set sleep minutes to check download folder again in your operating system and run the executable file from releases or compile with `go build main.go`
+ > ### Set the environment variable `SORT_FOLDER_DESTINATION` to download destination folder and `SORT_FOLDER_SLEEP_MINUTES=720` to set sleep minutes to check download folder again in your operating system and run the executable file from releases or compile with `go build main.go`
 
 ## Instructions to run the executables from releases
 - ### Windows
